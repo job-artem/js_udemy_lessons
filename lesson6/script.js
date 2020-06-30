@@ -35,7 +35,8 @@ function appendDelButtonToListElement(li) {
     const delButton = document.createElement('button');
     delButton.textContent = 'del';
     li.appendChild(delButton);
-    delButton.addEventListener('click', event => {
+    const removeParent = delButton.addEventListener('click', event => {
+        event.target.removeEventListener("click", removeParent, false);
         event.target.parentNode.remove();
     })
 }
@@ -47,7 +48,7 @@ function appendToggleDoneEventToListItem(li) {
 }
 
 list.forEach(li => {
-    appendToggleDoneEventToListItem(li);
+    // appendToggleDoneEventToListItem(li);
     appendDelButtonToListElement(li);
 });
 
@@ -56,7 +57,7 @@ button.addEventListener("click", function(event) {
     if (li) {
         console.log(li);
         appendDelButtonToListElement(li);
-        appendToggleDoneEventToListItem(li);
+        // appendToggleDoneEventToListItem(li);
     }
 
 });
@@ -66,7 +67,19 @@ input.addEventListener("keypress", function(event) {
     if (li) {
         console.log(li);
         appendDelButtonToListElement(li);
-        appendToggleDoneEventToListItem(li);
+        // appendToggleDoneEventToListItem(li);
     }
 
 });
+
+
+
+
+function strikeThrough(e) {
+    console.log(e)
+    if (e.target.tagName === "LI") {
+        e.target.classList.toggle("done");
+    }
+}
+
+ul.addEventListener('click', strikeThrough);
